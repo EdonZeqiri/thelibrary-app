@@ -1,0 +1,34 @@
+.box__container{
+    width: 1000px;
+    height: 1000px;
+    display: flex;
+    justify-content: center;
+}
+.box__container__left{
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 10px;
+    background-color: #F9F8F9;
+}
+
+.img{
+    border: 10px solid black;
+}
+.box__container__right{
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 10px;
+}
+
+.box__container__right > p {
+    font-size: 16px;
+    padding-top: 0;
+}
