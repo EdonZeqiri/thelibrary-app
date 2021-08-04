@@ -1,12 +1,10 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios'
-import './App.css';
-import { SearchBox } from './components/searchBox';
-import { BookCard } from './components/bookCard';
-import { BooksList } from './components/booksList';
-import ScaleLoader from "react-spinners/ScaleLoader"
 import { css } from "@emotion/react";
-
+import { useEffect, useState } from 'react';
+import ScaleLoader from "react-spinners/ScaleLoader";
+import './App.css';
+import { BooksList } from './components/booksList';
+import { SearchBox } from './components/searchBox';
+import { fetchBooks } from "./httpClient/books";
 
 const override = css`
   display: block;
@@ -20,26 +18,36 @@ function App() {
   const [books, setBooks] = useState([])
   const [searchField, setSearchField] = useState("")
   const [isLoading, setIsLoading] = useState(false)
-  const [color, setColor] = useState("#000000")
+  const color = "#000000"
 
 
-  const onSearchChange = e => {
+  const onChange = e => {
     setSearchField(e.target.value)
   }
-  const handleClick = () => {
+  const handleClick = async () => {
     setIsLoading(true)
-    axios.get(`http://openlibrary.org/search.json?q=${searchField}&limit=10`)
+    fetchBooks(searchField)
       .then((res) => {
         setBooks(res.data.docs)
       })
   }
-  console.log('books', books)
+
+  useEffect(() => {
+    if (books.length > 0) {
+      setIsLoading(false)
+    }
+  }, [books])
+
+
   return (
     <div className="App">
-      <h1>Library App</h1>
-      <SearchBox handleClick={handleClick} onSearchChange={onSearchChange} />
-      {books.length > 0 ? <BooksList books={books} /> : !isLoading ? <p>You haven't search any books</p> : ""}
-      {isLoading > 0 ? <ScaleLoader color={color} loading={true} css={override} size={150} /> : ""}
+      <h2 className="title">Library App</h2>
+      <SearchBox handleClick={handleClick} onChange={onChange} />
+
+      {!isLoading && books.length < 1 && <p className="paragraph" >You haven't search any books</p>}
+      {isLoading && <ScaleLoader color={color} loading={true} css={override} size={150} />}
+      {!isLoading && books.length > 0 && <BooksList books={books} />}
+
     </div>
   );
 }

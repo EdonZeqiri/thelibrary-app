@@ -1,19 +1,18 @@
-import React from 'react'
 import { Box } from '@material-ui/core';
-import "./bcardStyle.css"
+import React from 'react';
 import { BookModal } from '../bookModal';
+import "./card-style.css";
 
 
-export const BookCard = props => (
-    <Box className='card__container' onClick={() => { console.log('onClick', props.book.title) }}>
+export const BookCard = ({ book }) => (
+    <Box className='card__container'>
         <img
             width='120px'
-            // height='120px'
             alt='monster'
-            src={`https://covers.openlibrary.org/b/olid/${props.book.cover_edition_key}-M.jpg`}
+            src={`https://covers.openlibrary.org/b/olid/${book.cover_edition_key}-M.jpg`}
         />
-        <h2>{props.book.title}</h2>
-        <h4>{props.book.author_name}</h4>
-        <BookModal books={props.book} />
+        <h2>{book.title}</h2>
+        <h4>{book.author_name}</h4>
+        <BookModal book={book} />
     </Box>
 )

@@ -7,14 +7,13 @@
   text-align: center;
 }
 
-
-h1 {
-  font-family: 'Bigelow Rules';
+.title {
+  font-family: "Bigelow Rules";
   font-size: 50px;
   color: black;
 }
-p{
-  font-family: 'Bigelow Rules';
+.paragraph {
+  font-family: "Bigelow Rules";
   font-size: 30px;
   font-style: italic;
   color: black;
